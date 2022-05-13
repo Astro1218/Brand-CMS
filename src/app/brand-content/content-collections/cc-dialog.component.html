@@ -1,0 +1,83 @@
+<h2 md-dialog-title>
+  Content Collection</h2>
+<md-dialog-content>
+  <form [formGroup]="settingsForm">
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td colspan="2">
+          <md-select class="example-full-width" placeholder="Content Collection Type" formControlName="contentCollectionTypeId">
+            <md-option *ngFor="let cc of collectionTypes" [value]="cc.contentCollectionTypeId">
+              {{ cc.contentCollectionType }}
+            </md-option>
+          </md-select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="Title" formControlName="title">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="Details" formControlName="details">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="ALT Tag" formControlName="altTag">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          {{settingsForm.value.imageFilename}}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="URL To Link To" formControlName="urltoLinkTo">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <md-form-field>
+            <input mdInput [mdDatepicker]="picker" placeholder="Start date" formControlName="publishStartDate">
+            <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+            <md-datepicker #picker disabled="false"></md-datepicker>
+          </md-form-field>
+        </td>
+        <td>
+          <md-form-field>
+            <input mdInput [mdDatepicker]="picker2" placeholder="End date" formControlName="publishEndDate">
+            <md-datepicker-toggle mdSuffix [for]="picker2"></md-datepicker-toggle>
+            <md-datepicker #picker2 disabled="false"></md-datepicker>
+          </md-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <md-slide-toggle formControlName="cmsActive">CMS Active</md-slide-toggle>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <md-slide-toggle formControlName="showHeadline">Show Headline</md-slide-toggle>
+        </td>
+      </tr>
+    </table>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [md-dialog-close]="{form: settingsForm.value}" [disabled]="settingsForm.invalid"><i class="fa fa-save"></i></button>
+  <span class="example-spacer"></span>
+  <button md-button color="warn" [md-dialog-close]="{delete: settingsForm.value}" *ngIf="!isNew"><i class="fa fa-trash"></i></button>
+</md-dialog-actions>

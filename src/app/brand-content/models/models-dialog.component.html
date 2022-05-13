@@ -1,0 +1,21 @@
+<h3 md-dialog-title>
+  {{data.modelName}}</h3>
+<md-dialog-content>
+  <form [formGroup]="modelForm">
+    <section style="padding:20px 0;">
+      <md-select placeholder="CMS Active Override" formControlName="cmsActiveOverride" style="width:300px;">
+        <md-option *ngFor="let food of [{name:'Not Set', value: null},{name:'On', value: true},{name:'Off', value: false}]" [value]="food.value">
+          {{ food.name }}
+        </md-option>
+      </md-select>
+    </section>
+  </form>
+  <p *ngIf="!data.primaryImage || !data.sageActive" style="color:red;">
+    <i class="fa fa-warning"></i> Cannot set override until an Primary Image is available and SAGE is set to active.
+  </p>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [md-dialog-close]="modelForm.value" [disabled]="!data.primaryImage || !data.sageActive"><i class="fa fa-check"></i></button>
+</md-dialog-actions>

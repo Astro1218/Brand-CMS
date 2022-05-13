@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="col-md-4">
+    <md-card>
+      <md-card-header>
+        <div md-card-avatar>
+          <h2>
+            <i class="fa fa-check" style="color:green;"></i>
+          </h2>
+        </div>
+        <md-card-title>Reviews Awaiting Approval</md-card-title>
+        <md-card-subtitle>Customer product reviews</md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <h1>
+          {{dash?.reviewsAwaitingApproval || 0 | number }}
+        </h1>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div class="col-md-4">
+    <md-card>
+      <md-card-header>
+        <div md-card-avatar>
+          <h2>
+            <i class="fa fa-certificate" style="color:gold;"></i>
+          </h2>
+        </div>
+        <md-card-title>Registered Products</md-card-title>
+        <md-card-subtitle>Products registered since {{dash?.registeredSince | date:'dd/MM/yyyy'}}</md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <h1>
+          {{dash?.registeredProducts || 0 | number}}
+        </h1>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div class="col-md-4">
+    <md-card>
+      <md-card-header>
+        <div md-card-avatar>
+          <h2>
+            <i class="fa fa-power-off" style="color:green;"></i>
+          </h2>
+        </div>
+        <md-card-title>Active Products</md-card-title>
+        <md-card-subtitle>Active Products</md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <h1>
+          {{dash?.activeProductCount || 0 | number}}
+        </h1>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-8">
+    <md-card>
+      <md-card-title>
+        Product Search
+      </md-card-title>
+      <form [formGroup]="form">
+        <md-card-content>
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="Model Name or Primary Description..." id="model" name="model" formControlName="searchString"
+              autocomplete="off">
+          </md-input-container>
+        </md-card-content>
+        <button md-raised-button (click)="search(form.value.searchString)" [disabled]="form.value.searchString.length < 2">Search</button>
+        <button md-raised-button (click)="list = []; selectedSku = ''">Clear</button>
+      </form>
+    </md-card>
+    <table class="md-table" *ngIf="list.length > 0">
+      <thead>
+        <tr>
+          <th *ngFor="let header of ['Product SKU', 'Model Name', 'Primary', 'Secondary', 'PBX Active', 'CMS Active Override', 'Has Image', 'Region Code']">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let k of list" (click)="edit(k)" class="cursor">
+          <td>{{k?.productSKU}} <i *ngIf="k?.featuredProductActive" class="fa fa-star gold"></i></td>
+          <td>{{k?.modelName}}</td>
+          <td>{{k?.primaryDescription}}</td>
+          <td>{{k?.secondaryDescription}}</td>
+          <td><i [ngClass]="k?.cmsActive ? 'fa fa-check green' : 'fa fa-close red'"></i></td>
+          <td>
+            <i [ngClass]="k?.cmsActiveOverride === true ? 'fa fa-check green' : ''"></i>
+            <i [ngClass]="k?.cmsActiveOverride === false ? 'fa fa-close red' : ''"></i>
+            <i [ngClass]="k?.cmsActiveOverride == null ? 'fa fa-minus orange' : ''"></i>
+          </td>
+          <td><i [ngClass]="k?.hasImage ? 'fa fa-check green' : 'fa fa-close red'"></i></td>
+          <td>{{k?.regionCode}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-lg-4">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of features" [ngClass]="{'approved': s.productSKU == selectedSku}">
+          <td class="cursor" (click)="search(s.productSKU)">{{s?.productSKU}}</td>
+          <!-- <td>{{s?.featuredProductDisplayLevel}}</td> -->
+        </tr>
+        <tr>
+          <td *ngIf="features.length === 0" [attr.colspan]="columns.length">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<h3 md-dialog-title>
+  {{reviewForm.value?.primaryDescription}} ({{reviewForm.value?.modelName}}) Review</h3>
+<md-dialog-content>
+  <form [formGroup]="reviewForm">
+    <p>
+      <span *ngIf="reviewForm.value?.rating === 0">
+            <i class="fa fa-star-0" style="color:#f1c40f;"></i>
+        </span>
+      <span *ngIf="reviewForm.value?.rating === 1">
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+            (1 Star)
+        </span>
+      <span *ngIf="reviewForm.value?.rating === 2">
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+            (2 Star)
+        </span>
+      <span *ngIf="reviewForm.value?.rating === 3">
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+            (3 Star)
+        </span>
+      <span *ngIf="reviewForm.value?.rating === 4">
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+            (4 Star)
+        </span>
+      <span *ngIf="reviewForm.value?.rating === 5">
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+        <i class="fa fa-star" style="color:#f1c40f;"></i>
+            (5 Star)
+        </span>
+    </p>
+    <md-card>
+      <md-card-title>{{reviewForm.value?.reviewTitle}}</md-card-title>
+      <md-card-subtitle>{{reviewForm.value?.customerUserName}} ({{reviewForm.value?.customerEmail}}) @ {{reviewForm.value?.dateCreated | date:
+        'medium'}}</md-card-subtitle>
+      <md-card-content [class.approved]="reviewForm.value?.adminApproved">
+        {{reviewForm.value?.reviewComments}}
+      </md-card-content>
+    </md-card>
+    <md-card *ngIf="reviewForm.value?.adminComment && reviewForm.value?.adminApproved">
+      <md-card-title>Admin Response</md-card-title>
+      <md-card-content>
+        <div [innerHTML]="reviewForm.value?.adminComment"></div>
+      </md-card-content>
+    </md-card>
+    <p *ngIf="!reviewForm.value?.adminComment && reviewForm.value?.adminApproved">
+      No admin comment left.
+    </p>
+    <p *ngIf="!reviewForm.value?.adminApproved">
+      <md-input-container class="example-full-width">
+        <textarea mdInput placeholder="Admin Comment" rows="5" cols="40" formControlName="adminComment"></textarea>
+      </md-input-container>
+    </p>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" *ngIf="!reviewForm.value?.adminReviewed" [md-dialog-close]="{result: reviewForm.value, approved: false}"><i class="fa fa-check"></i> Reviewed</button>
+  <button md-raised-button color="primary" *ngIf="!reviewForm.value?.adminApproved" [disabled]="reviewForm.invalid" [md-dialog-close]="{result: reviewForm.value, approved: true}">Approve</button>
+  <button md-raised-button color="accent" *ngIf="reviewForm.value?.adminApproved" [disabled]="reviewForm.invalid" [md-dialog-close]="{result: reviewForm.value, approved: false}">Unapprove</button>
+</md-dialog-actions>

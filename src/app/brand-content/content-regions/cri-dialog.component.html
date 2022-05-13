@@ -1,0 +1,12 @@
+<h2 md-dialog-title>Add Content Region Item</h2>
+<md-dialog-content>
+    <md-select placeholder="Content Region Languages" class="example-full-width" [(ngModel)]="model">
+        <md-option *ngFor="let l of languages" [value]="l.languageId">
+            {{ l.cultureCode }}
+        </md-option>
+    </md-select>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close>Close</button>
+  <button md-raised-button [md-dialog-close]="model" color="primary" [disabled]="!model">Save</button>
+</md-dialog-actions>

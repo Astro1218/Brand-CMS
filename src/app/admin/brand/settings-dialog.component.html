@@ -1,0 +1,36 @@
+<h2 md-dialog-title>
+  Site Settings</h2>
+<md-dialog-content>
+  <form [formGroup]="settingsForm">
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td>
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="Description" formControlName="description">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="Name" formControlName="name">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="Value" formControlName="value">
+          </md-input-container>
+        </td>
+      </tr>
+    </table>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [md-dialog-close]="{form: settingsForm.value}"><i class="fa fa-save"></i></button>
+  <span class="example-spacer"></span>
+  <button md-button color="warn" [md-dialog-close]="{delete: settingsForm.value}"><i class="fa fa-trash"></i></button>
+</md-dialog-actions>

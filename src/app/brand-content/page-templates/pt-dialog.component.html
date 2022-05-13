@@ -1,0 +1,39 @@
+<h2 md-dialog-title>Page Template</h2>
+<md-dialog-content>
+  <form class="example-form" [formGroup]="ptForm">
+    <md-form-field class="example-full-width">
+      <input mdInput placeholder="Name" formControlName="pageTemplateName">
+    </md-form-field>
+    <md-form-field class="example-full-width">
+      <input mdInput placeholder="Title" formControlName="title">
+    </md-form-field>
+    <md-input-container class="example-full-width">
+      <textarea mdInput placeholder="Meta Description" formControlName="metaDescription" cols="40" rows="2"></textarea>
+    </md-input-container>
+    <md-select class="example-full-width" placeholder="Image Galleries" formControlName="imageGalleryId">
+      <md-option *ngFor="let g of galleries" [value]="g.imageGalleryId">{{g.imageGalleryName}}</md-option>
+    </md-select>
+
+    <p style="color: orange;">
+      Comma (,) separate the product code.
+    </p>
+
+    <md-input-container class="example-full-width">
+      <textarea mdInput placeholder="Products" formControlName="products" cols="40" rows="5"></textarea>
+    </md-input-container>
+    <md-slide-toggle class="example-margin" [color]="'accent'" formControlName="showReviews">
+      Show Reviews?
+    </md-slide-toggle>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="accent">Close</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [disabled]="ptForm.invalid" [md-dialog-close]="ptForm.value">
+    <i class="fa fa-save"></i>
+  </button>
+  <span class="example-spacer"></span>
+  <button *ngIf="!isNew" md-button color="warn" [md-dialog-close]="{delete: ptForm.value}">
+    <i class="fa fa-trash"></i>
+  </button>
+</md-dialog-actions>

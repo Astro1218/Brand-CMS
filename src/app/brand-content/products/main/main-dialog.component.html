@@ -1,0 +1,24 @@
+<h2 md-dialog-title>{{data.mainCategory}}</h2>
+<md-dialog-content>
+  <form [formGroup]="mainForm">
+    <section style="padding:20px 0;">
+      <md-select placeholder="CMS Active Override" formControlName="cmsActiveOverride" style="width:300px;">
+        <md-option *ngFor="let food of options" [value]="food.value">
+          {{ food.name }}
+        </md-option>
+      </md-select>
+    </section>
+    <md-input-container class="example-full-width">
+      <textarea mdInput placeholder="Description" formControlName="categoryDescription" cols="40" rows="10"></textarea>
+    </md-input-container>
+
+    <section style="padding:20px 0;" *ngIf="data.data.showOverrideSubCategory">
+      <md-slide-toggle [color]="'accent'" formControlName="overrideSubCategory">Sub Category Override</md-slide-toggle>
+    </section>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [md-dialog-close]="mainForm.value"><i class="fa fa-save"></i></button>
+</md-dialog-actions>

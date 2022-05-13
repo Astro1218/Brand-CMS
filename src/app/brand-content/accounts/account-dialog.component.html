@@ -1,0 +1,96 @@
+<h2 md-dialog-title>{{form.value.title}}. {{form.value.firstName}} {{form.value.lastName}}</h2>
+<md-dialog-content>
+    <form [formGroup]="form">
+      <p>
+        <md-slide-toggle formControlName="isActive">Active</md-slide-toggle>
+      </p>
+      <p>
+        <md-slide-toggle formControlName="emailConfirmed">Email Confirmed</md-slide-toggle>
+      </p>
+      <p>
+        <md-slide-toggle formControlName="optIn">Opt In</md-slide-toggle>
+      </p>
+      <md-input-container class="example-full-width">
+        <input mdInput placeholder="Title *" formControlName="title">
+      </md-input-container>
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <md-input-container class="example-full-width">
+              <input mdInput placeholder="First Name *" formControlName="firstName">
+            </md-input-container>
+          </td>
+          <td>
+            <md-input-container class="example-full-width">
+              <input mdInput placeholder="Last Name *" formControlName="lastName">
+            </md-input-container>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <md-input-container class="example-full-width">
+              <input mdInput placeholder="Address 1 *" formControlName="address1">
+            </md-input-container>
+          </td>
+          <td>
+            <md-input-container class="example-full-width">
+              <input mdInput placeholder="Address 2" formControlName="address2">
+            </md-input-container>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <md-input-container class="example-full-width">
+              <input mdInput placeholder="City *" formControlName="city">
+            </md-input-container>
+          </td>
+          <td>
+            <md-input-container class="example-full-width">
+              <input mdInput placeholder="County *" formControlName="county">
+            </md-input-container>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <md-input-container class="example-full-width">
+              <input mdInput placeholder="Country *" formControlName="country">
+            </md-input-container>
+          </td>
+          <td>
+            <md-input-container class="example-full-width">
+              <input mdInput placeholder="Post Code *" formControlName="postCode">
+            </md-input-container>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <md-input-container class="example-full-width">
+              <input mdInput placeholder="Email Address *" formControlName="email">
+            </md-input-container>
+          </td>
+        </tr>
+      </table>
+      <table class="example-full-width" cellspacing="0" style="margin-top:20px;">
+        <tr>
+          <td>
+            <h4>{{form.value.aboutYou}}</h4>
+          </td>
+          <td>
+            <h4>{{form.value.ageRange}}</h4>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Modified By
+          </td>
+          <td>
+              <h4>{{form.value.createdDate | date: 'medium'}}</h4>
+          </td>
+        </tr>
+      </table>
+    </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close>Close</button>
+  <!-- <button md-raised-button [md-dialog-close]="form.value" color="primary" [disabled]="form.invalid">Save</button> -->
+</md-dialog-actions>

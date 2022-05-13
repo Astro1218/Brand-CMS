@@ -1,0 +1,41 @@
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-12">
+    <a [routerLink]="returnLink" md-raised-button>Return</a>
+    <button md-raised-button color="primary" (click)="openDialog(null, true)">Add Content Region Item</button>
+  </div>
+</div>
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-12">
+    <md-card>
+      <md-card-header>
+        <md-card-title>{{collection?.title || 'N/A'}}</md-card-title>
+        <md-card-subtitle>{{collection?.details || 'N/A'}}</md-card-subtitle>
+      </md-card-header>
+    </md-card>
+  </div>
+</div>
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-12">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of items">
+          <td>{{s?.title}}</td>
+          <td>{{s?.details}}</td>
+          <td>{{s?.cultureCode}}</td>
+          <td><i class="fa fa-edit" (click)="openDialog(s, true)"></i></td>
+        </tr>
+        <tr>
+          <td *ngIf="items.length === 0" [attr.colspan]="columns.length">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+  </div>
+</div>

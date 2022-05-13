@@ -1,0 +1,44 @@
+<h2 md-dialog-title>Edit Image Gallery</h2>
+<md-dialog-content>
+  <form class="example-form" [formGroup]="galleryForm">
+    <md-form-field class="example-full-width" *ngIf="data.isAdmin">
+      <input mdInput placeholder="Image Gallery Name" formControlName="imageGalleryName">
+    </md-form-field>
+    <md-form-field class="example-full-width">
+      <textarea mdInput placeholder="Description" formControlName="description" cols="40" rows="5"></textarea>
+    </md-form-field>
+    <md-select class="example-full-width" placeholder="Culture Code" formControlName="languageId">
+      <md-option *ngFor="let l of languages" [value]="l.languageId">
+        {{l?.cultureCode}}
+      </md-option>
+    </md-select>
+    <p style="color: orange;">
+      (Optional) Set an image height and width (pixels). Both are required to force rule.
+    </p>
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td>
+          <md-form-field class="example-full-width">
+            <input mdInput placeholder="Width (pixels)" formControlName="width">
+          </md-form-field>
+        </td>
+        <td>
+            <md-form-field class="example-full-width">
+              <input mdInput placeholder="Height (pixels)" formControlName="height">
+            </md-form-field>
+          </td>
+      </tr>
+    </table>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="accent">Close</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [disabled]="galleryForm.invalid" [md-dialog-close]="galleryForm.getRawValue()">
+    <i class="fa fa-save"></i>
+  </button>
+  <span class="example-spacer"></span>
+  <button *ngIf="!isNew && data.isAdmin" md-button color="warn" [md-dialog-close]="{delete: galleryForm.value}">
+    <i class="fa fa-trash"></i>
+  </button>
+</md-dialog-actions>

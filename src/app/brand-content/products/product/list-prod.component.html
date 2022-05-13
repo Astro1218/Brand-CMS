@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-12">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody dnd-sortable-container [sortableData]="products">
+        <tr *ngFor="let s of products; let i = index;" dnd-sortable [sortableIndex]="i" (onDropSuccess)="onDrop(i, s)">
+          <td width="30" class="handle" dnd-sortable-handle><i class="fa fa-bars"></i></td>
+          <td>{{s?.productSKU}} <i *ngIf="s?.featuredProductActive" class="fa fa-star gold"></i></td>
+          <td>{{s?.modelName}}</td>
+          <td>{{s?.primaryDescription}}</td>
+          <td>{{s?.secondaryDescription}}</td>
+          <td><i [ngClass]="s?.cmsActive ? 'fa fa-check green' : 'fa fa-close red'"></i></td>
+          <td>
+            <!-- <i [ngClass]="s?.cmsActiveOverride === true ? 'fa fa-check green' : ''"></i>
+              <i [ngClass]="s?.cmsActiveOverride === false ? 'fa fa-close red' : ''"></i>
+              <i [ngClass]="s?.cmsActiveOverride == null ? 'fa fa-minus orange' : ''"></i> -->
+            <button md-raised-button [ngClass]="s?.cmsActiveOverride == true ? 'danger' : 'success'" (click)="switchActive(s)">{{s?.cmsActiveOverride
+              === true ? 'Set Inactive' : 'Set Active'}}</button>
+          </td>
+          <td><i [ngClass]="s?.hasImage ? 'fa fa-check green' : 'fa fa-close red'"></i></td>
+          <td>{{s?.regionCode}}</td>
+          <td>
+            <button md-raised-button [ngClass]="s?.featuredProductActive == true ? 'danger' : 'success'" (click)="switchFeature(s)">{{s?.featuredProductActive
+              === true ? 'Disable Feature' : 'Enable Feature'}}</button>
+          </td>
+          <td>
+            <button md-raised-button (click)="promo(s)"><i class="fa fa-youtube-square" style="color:#f00;"></i></button>
+          </td>
+          <td>
+            <button md-raised-button (click)="edit(s)"><i class="fa fa-edit"></i></button>
+
+          </td>
+        </tr>
+        <tr>
+          <td *ngIf="products.length === 0" colspan="6">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar> -->
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<h2 md-dialog-title>YouTube Promo Video</h2>
+<md-dialog-content style="overflow:visible;">
+  <md-card>
+    <form [formGroup]="promoForm">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Promo Video Filename" formControlName="promoVideoFilename">
+      </md-form-field>
+      <md-select placeholder="Video Name Type" formControlName="videoName" class="example-full-width">
+        <md-option *ngFor="let t of types" [value]="t?.videoName">
+          {{ t?.videoName }}
+        </md-option>
+      </md-select>
+    </form>
+    <br>
+    <button md-button color="accent" *ngIf="promoForm.value.productPromoVideoId" (click)="clear()">Clear</button>
+    <button md-raised-button color="primary" (click)="add(promoForm.value)">
+      <span *ngIf="!promoForm.value.productPromoVideoId">Add</span>
+      <span *ngIf="promoForm.value.productPromoVideoId">Update</span>
+    </button>
+  </md-card>
+  <table class="md-table">
+    <thead>
+      <tr>
+        <th *ngFor="let header of columns">{{header}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of videos">
+        <td><a [href]="s?.promoVideoFilename" target="_blank">{{s?.promoVideoFilename}}</a></td>
+        <td>{{s?.videoName}}</td>
+        <td><i class="fa fa-edit" (click)="edit(s)"></i></td>
+        <td><i class="fa fa-trash-o" (click)="delete(s)"></i></td>
+      </tr>
+      <tr>
+        <td *ngIf="videos.length === 0" [attr.colspan]="columns.length">
+          No data.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button>
+</md-dialog-actions>

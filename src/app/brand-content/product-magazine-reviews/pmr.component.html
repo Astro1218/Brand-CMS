@@ -1,0 +1,41 @@
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-12">
+    <button md-raised-button color="primary" (click)="openDialog(null, true)">Add Product Magazine Review</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of ['Product SKU','Image Gallery', 'Active', '', '']">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let l of list">
+          <td>
+            <a [routerLink]="l?.productMagazineReviewId">{{l?.productSKU}}</a>
+          </td>
+          <td>
+            {{l?.imageGalleryName}}
+          </td>
+          <td>
+            <i [attr.class]="l.cmsActive ? 'fa fa-check green' : 'fa fa-close red'"></i>
+          </td>
+          <td>
+              <button md-raised-button (click)="openDialog(l, false)"><i class="fa fa-edit"></i></button>
+            </td>
+            <td>
+              <button md-raised-button color="warn" (click)="remove(l)"><i class="fa fa-trash-o"></i></button>
+            </td>
+        </tr>
+        <tr *ngIf="list.length === 0">
+          <td colspan="4">
+            <em>No data.</em>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

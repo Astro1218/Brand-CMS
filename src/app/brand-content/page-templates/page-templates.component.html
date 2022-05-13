@@ -1,0 +1,45 @@
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-12">
+    <button md-raised-button color="primary" (click)="openDialog(null, true)">Add Page Template</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of templates">
+          <td>
+            {{t?.pageTemplateName}}
+          </td>
+          <td>
+            {{t?.title}}
+          </td>
+          <td>
+            <span *ngIf="t.products.length > 20">{{t?.products.substring(0,19)}}...</span>
+            <span *ngIf="t.products.length <= 20">{{t?.products}}</span>
+          </td>
+          
+          <td>{{t?.imageGalleryName}}</td>
+          <td>
+              <i [ngClass]="t?.showReviews ? 'fa fa-check green' : 'fa fa-times red'"></i>
+          </td>
+          <td>
+            <button md-raised-button (click)="openDialog(t, false)"><i class="fa fa-edit"></i></button>
+          </td>
+        </tr>
+        <tr>
+          <td *ngIf="templates.length === 0" colspan="5">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+  </div>
+</div>

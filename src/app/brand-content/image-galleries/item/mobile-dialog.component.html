@@ -1,0 +1,38 @@
+<h2 md-dialog-title>Mobile Image</h2>
+<md-dialog-content>
+  <form class="example-form" [formGroup]="itemForm">
+    <p>
+      Gallery Item
+      <img [src]="data.data.imageUrl" alt="" style="width: 100%;">
+    </p>
+    <p *ngIf="itemForm.value.imageUrl">
+      Mobile Image
+      <img [src]="itemForm.value.imageUrl" alt="" style="width: 100%;">
+    </p>
+
+    <p-fileUpload name="files" [url]="uploadUrl" chooseLabel="Choose / Add" withCredentials="true" (onUpload)="onUpload($event)"
+      accept="image/jpeg" (onError)="onError($event)" [maxFileSize]="maxFileSize" *ngIf="!itemForm.value.imageUrl">
+      <ng-template pTemplate="content">
+        <div style="text-align:center;" *ngIf="uploadedFiles.length === 0">
+          Drag &amp; Drop your mobile image here...
+          <p>
+            <strong style="color:red;"><i class="fa fa-warning"></i> Select JPEG/JPG files only</strong>
+          </p>
+        </div>
+        <div *ngIf="uploadedFiles.length > 0">
+          <ul>
+            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+          </ul>
+        </div>
+      </ng-template>
+    </p-fileUpload>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="accent">Close</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <span class="example-spacer"></span>
+  <button *ngIf="itemForm.value.imageUrl" md-button color="warn" (click)="delete(itemForm.value)">
+    <i class="fa fa-trash"></i>
+  </button>
+</md-dialog-actions>

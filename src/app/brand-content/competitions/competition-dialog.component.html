@@ -1,0 +1,31 @@
+<h2 md-dialog-title>
+  <span *ngIf="data.isNew">New</span> Competition</h2>
+<md-dialog-content>
+  <form [formGroup]="form">
+    <md-form-field class="example-full-width">
+        <input mdInput placeholder="Competition Name..." formControlName="competitionName" maxlength="50">
+      </md-form-field>
+    <br>
+    <br>
+    <md-select class="example-full-width" placeholder="Image Galleries" formControlName="imageGalleryId">
+      <md-option *ngFor="let g of galleries" [value]="g.imageGalleryId">{{g.imageGalleryName}}</md-option>
+    </md-select>
+    <br>
+    <br>
+    <md-select class="example-full-width" placeholder="Culture Code" formControlName="languageId">
+      <md-option *ngFor="let l of languages" [value]="l.languageId">
+        {{l?.cultureCode}}
+      </md-option>
+    </md-select>
+    <br>
+    <br>
+    <md-slide-toggle formControlName="cmsActive">Active</md-slide-toggle>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [md-dialog-close]="form.value" [disabled]="form.invalid">
+    <i class="fa fa-save"></i>
+  </button>
+</md-dialog-actions>

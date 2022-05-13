@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-lg-12">
+    <p>
+      To add more, return to the Image Galleries page.
+    </p>
+  </div>
+  <div class="col-sm-6 col-md-3" *ngFor="let l of list">
+    <md-card>
+      <md-card-header style="height: 50px;">
+        <div md-card-avatar class="example-header-image"></div>
+        <md-card-title>{{l?.title || 'No title'}}</md-card-title>
+      </md-card-header>
+      <div style="height: 100%; padding:25px; position: relative; overflow-y: hidden;">
+        <div style="width: 100%;">
+          <img md-card-image [src]="l.imageUrl" [attr.alt]="l?.imageDescription" [title]="l?.imageTitle || 'No image title set'">
+        </div>
+      </div>
+      <md-card-content>
+        <p>
+          Active: <i [attr.class]="l.cmsActive ? 'fa fa-check green' : 'fa fa-close red'"></i>
+        </p>
+        <div *ngIf="l.dateFrom">
+          <hr>
+          <p>
+            {{l?.dateFrom}} - {{l?.dateTo}}
+          </p>
+        </div>
+      </md-card-content>
+      <md-card-actions>
+        <button md-raised-button color="primary" (click)="openDialog(l)" style="width:100%;">EDIT</button>
+        <p *ngIf="l.pdfURL">
+          <a md-raised-button [attr.href]="l.pdfURL" target="_blank" style="width:100%;">VIEW PDF</a>
+        </p>
+      </md-card-actions>
+    </md-card>
+  </div>
+</div>

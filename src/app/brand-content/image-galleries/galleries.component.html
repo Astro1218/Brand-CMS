@@ -1,0 +1,48 @@
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-12">
+    <button *ngIf="isAdmin" md-raised-button color="primary" (click)="openDialog(null, true)">Add Image Gallery</button>
+    <select [(ngModel)]="selected_language" (change)="filterGallery(selected_language)">
+      <option value="">All Languages</option>
+      <option [value]="code" *ngFor="let code of existing_codes">{{code}}</option>
+    </select>
+    <input type="text" [(ngModel)]="search_text" (keyup)="filterDescription(search_text)" placeholder="Search by description...">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of galleries">
+          <td *ngIf="isAdmin">
+            {{s?.imageGalleryName}}
+          </td>
+          <td><a [routerLink]="[s?.imageGalleryId, s?.cultureCode, s?.imageGalleryName]">{{s?.description}}</a></td>
+          <td>{{s?.cultureCode}}</td>
+          <td>
+              <span *ngIf="s?.width">{{s?.width | number}}</span>
+              <span *ngIf="!s?.width"><i class="fa fa-close red"></i></span>
+          </td>
+          <td>
+              <span *ngIf="s?.height">{{s?.height | number}}</span>
+              <span *ngIf="!s?.height"><i class="fa fa-close red"></i></span>
+            </td>
+          <td>
+            <button md-raised-button (click)="openDialog(s, false)"><i class="fa fa-edit"></i></button>
+          </td>
+        </tr>
+        <tr>
+          <td *ngIf="galleries.length === 0" colspan="5">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+  </div>
+</div>

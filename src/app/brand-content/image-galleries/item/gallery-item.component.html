@@ -1,0 +1,72 @@
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-12">
+    <a md-raised-button [routerLink]="returnLink"><i class="fa fa-arrow-left"></i> Galleries</a>
+    <!-- <button md-raised-button color="primary" (click)="openDialog(null, true)">Add Image Gallery Item</button> -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12" style="margin-bottom:20px;">
+    <table class="md-table">
+      <thead>
+        <tr class="primary">
+          <th [attr.colspan]="columns.length">{{name.toUpperCase()}}
+            <span style="float:right;"><i class="fa fa-refresh" (click)="getData()"></i></span>
+          </th>
+        </tr>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody dnd-sortable-container [sortableData]="items">
+        <tr *ngFor="let s of items; let i = index;" dnd-sortable [sortableIndex]="i" (onDropSuccess)="onDrop(i, s)">
+          <td width="30" class="handle" dnd-sortable-handle><i class="fa fa-bars"></i></td>
+          <td><img [src]="s?.imageUrl" [alt]="s?.filename" height="50"></td>
+          <td>{{s?.altTag || '-'}}</td>
+          <td><a [href]="s?.urLtoLinkTo" target="_blank">{{s?.urLtoLinkTo || '-'}}</a></td>
+          <td>
+            <i [ngClass]="s?.loadSeparateTab ? 'fa fa-check green' : 'fa fa-times red'"></i>
+          </td>
+          <td>{{s?.title || '-'}}</td>
+          <td>{{s?.itemDescription || 'N/A'}}</td>
+          <td>{{s?.displayOrder + 1}}</td>
+          <td><i [ngClass]="s?.cmsActive ? 'fa fa-check green' : 'fa fa-times red'"></i></td>
+          <td><i [ngClass]="s?.mobileImgExists ? 'fa fa-check green' : 'fa fa-times red'"></i></td>
+          <td><button md-raised-button (click)="openDialog(s, false)"><i class="fa fa-edit"></i></button></td>
+          <td>
+              <button md-raised-button color="primary" (click)="mobileDialog(s, s.mobileImgExists)">{{s?.mobileImgExists ? 'View' : 'Attached'}} Mobile Image</button>
+          </td>
+        </tr>
+        <tr *ngIf="items.length === 0">
+          <td [attr.colspan]="columns.length">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+  </div>
+  <div class="col-md-12">
+    <p>
+        <strong style="color:red;"><i class="fa fa-warning"></i> Select JPEG/JPG files only</strong> 
+    </p>
+    <p-fileUpload name="files" [url]="uploadUrl" chooseLabel="Choose / Add" withCredentials="true" (onUpload)="onUpload($event)"
+      multiple="multiple" accept="image/jpeg" (onError)="onError($event)" [maxFileSize]="maxFileSize">
+      <ng-template pTemplate="toolbar">
+        <div *ngIf="gallery?.height && gallery?.width">
+          Required image size {{gallery?.width}}px x {{gallery?.height}}px.
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <div style="text-align:center;" *ngIf="uploadedFiles.length === 0">
+          Drag &amp; Drop your image(s) here...
+        </div>
+        <div *ngIf="uploadedFiles.length > 0">
+          <ul>
+            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+          </ul>
+        </div>
+      </ng-template>
+    </p-fileUpload>
+  </div>
+</div>

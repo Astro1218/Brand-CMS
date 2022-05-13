@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-12">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody dnd-sortable-container [sortableData]="subCategories">
+        <tr *ngFor="let s of subCategories; let i = index;" dnd-sortable [sortableIndex]="i" (onDropSuccess)="onDrop(i, s)" (click)="edit(s)">
+          <td width="30" class="handle" dnd-sortable-handle><i class="fa fa-bars"></i></td>
+          <td>{{s?.subCategory}}</td>
+          <td><i [ngClass]="s?.cmsActive ? 'fa fa-check green' : 'fa fa-close red'"></i></td>
+          <td>
+            <i [ngClass]="s?.cmsActiveOverride === true ? 'fa fa-check green' : ''"></i>
+            <i [ngClass]="s?.cmsActiveOverride === false ? 'fa fa-close red' : ''"></i>
+            <i [ngClass]="s?.cmsActiveOverride == null ? 'fa fa-minus orange' : ''"></i>
+          </td>
+          <td *ngIf="s?.showImageUploaded" ><i [ngClass]="s?.imageUploaded ? 'fa fa-check green' : 'fa fa-close red'"></i></td>
+          <td>{{s?.cmsOrder + 1}}</td>
+        </tr>
+        <tr>
+          <td *ngIf="subCategories.length === 0" [attr.colspan]="columns.length">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar> -->
+  </div>
+</div>

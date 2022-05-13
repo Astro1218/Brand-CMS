@@ -1,0 +1,38 @@
+<div class="row" style="margin-bottom:20px;" *ngIf="isAdmin">
+  <div class="col-md-12">
+    <button md-raised-button color="primary" (click)="openDialog()">Add Content Region</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <p>
+      <i class="fa fa-info-circle"></i> The highlighted rows are Published Content Regions.
+    </p>
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of regions" [class.approved]="r?.published">
+          <td *ngIf="isAdmin">
+            {{r?.contentRegion}}
+          </td>
+          <td><a [routerLink]="[r?.contentRegionId]">{{r?.description}}</a></td>
+          <td>{{r?.cmsDateModified | date: 'dd/MM/yy'}}</td>
+          <td>{{r?.cmsModifiedBy}}</td>
+          <td *ngIf="isAdmin">
+              <button md-raised-button color="warn" (click)="deleteAll(r)"><i class="fa fa-trash-o"></i></button>
+          </td>
+        </tr>
+        <tr>
+          <td *ngIf="regions.length === 0" [attr.colspan]="columns.length">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+  </div>
+</div>

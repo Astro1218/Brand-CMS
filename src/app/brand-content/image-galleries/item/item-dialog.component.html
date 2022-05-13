@@ -1,0 +1,55 @@
+<h2 md-dialog-title>Edit Image Gallery</h2>
+<md-dialog-content>
+  <form class="example-form" [formGroup]="itemForm">
+    <small>FileName</small>
+    <p>
+      {{itemForm.value.filename}}
+    </p>
+    <md-form-field class="example-full-width">
+      <textarea mdInput placeholder="Item Description" formControlName="itemDescription" cols="40" rows="5"></textarea>
+    </md-form-field>
+    <md-form-field class="example-full-width">
+      <textarea mdInput placeholder="URL To Link To" formControlName="urLtoLinkTo" cols="40" rows="5"></textarea>
+    </md-form-field>
+    <md-form-field class="example-full-width">
+      <input mdInput placeholder="Title" formControlName="title">
+    </md-form-field>
+    <md-form-field class="example-full-width">
+      <input mdInput placeholder="AltTag *" formControlName="altTag">
+    </md-form-field>
+    <md-slide-toggle class="example-margin" [color]="'accent'" formControlName="loadSeparateTab">
+      Load link on a separate tab?
+    </md-slide-toggle>
+    <br>
+    <br>
+    <md-slide-toggle class="example-margin" [color]="'accent'" formControlName="cmsActive">
+      Active
+    </md-slide-toggle>
+    <br>
+    <br>
+    <small style="color:red;">
+     <i class="fa fa-warning"></i> Both dates need to be populated for this functionality to work.
+    </small>
+    <md-form-field class="example-full-width">
+      <input mdInput [mdDatepicker]="picker" placeholder="Choose a From date" formControlName="dateFrom">
+      <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+      <md-datepicker #picker></md-datepicker>
+    </md-form-field>
+    <md-form-field class="example-full-width">
+      <input mdInput [mdDatepicker]="picker2" placeholder="Choose a To date" formControlName="dateTo">
+      <md-datepicker-toggle mdSuffix [for]="picker2"></md-datepicker-toggle>
+      <md-datepicker #picker2></md-datepicker>
+    </md-form-field>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="accent">Close</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [md-dialog-close]="itemForm.value" [disabled]="itemForm.invalid">
+    <i class="fa fa-save"></i>
+  </button>
+  <span class="example-spacer"></span>
+  <button *ngIf="!isNew" md-button color="warn" [disabled]="itemForm.value.mobileImgExists == 1" [title]="itemForm.value.mobileImgExists == 1 ? 'Delete the mobile image first.' : ''" [md-dialog-close]="{delete: itemForm.value}">
+    <i class="fa fa-trash"></i>
+  </button>
+</md-dialog-actions>

@@ -1,0 +1,44 @@
+<md-sidenav-container class="example-container">
+  <md-sidenav #sidenav class="example-sidenav" mode="side" opened="false" style="width:235px;">
+    <md-list>
+      <img [attr.src]="getImage(selectedBrand)" [alt]="selectedBrand" style="width:165px; margin-left:32px;">
+      <md-divider></md-divider>
+      <md-list-item><a md-button style="width:100%;" [routerLink]="['']"><i class="fa fa-th"></i> Brand Selection</a></md-list-item>
+      <md-divider></md-divider>
+      <md-list-item routerLinkActive="active"><a md-button style="width:100%;" routerLinkActive="active" [routerLink]="[selectedBrand, brandId, 'dashboard']">Dashboard</a></md-list-item>
+      <md-list-item *ngFor="let c of categories" routerLinkActive="active">
+        <a md-button style="width:100%;" routerLinkActive="active" [routerLink]="[selectedBrand, brandId, c?.siteNavigation.toLowerCase().replace(' ', '-').replace(' ', '-')]">{{c?.siteNavigation}}</a>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
+  <md-sidenav #sidenavAdmin class="example-sidenav" mode="side" opened="false" align="end">
+    <md-list>
+      <img [attr.src]="getImage('admin')" [alt]="selectedBrand" style="width:165px; margin-left:15px;">
+      <md-divider></md-divider>
+      <md-list-item><a md-button style="width:100%;" [routerLink]="['']"><i class="fa fa-th"></i> Brand Selection</a></md-list-item>
+      <md-divider></md-divider>
+      <md-list-item><a md-button style="width:100%;" [routerLink]="['admin']">Brands</a></md-list-item>
+      <md-list-item><a md-button style="width:100%;" [routerLink]="['admin', 'resource-strings']">Resource Strings</a></md-list-item>
+    </md-list>
+  </md-sidenav>
+  <div class="example-sidenav-content">
+    <md-toolbar color="primary">
+      <span (click)="toggle()" *ngIf="showToggle">
+        <i class="fa fa-bars"></i>
+      </span>
+      <span>Branded Sites CMS</span>
+      <span>
+        <a [routerLink]="'/'"><i class="fa fa-th"></i></a>
+      </span>
+      <span class="example-spacer"></span>
+
+      <span (click)="toggleAdmin()" *ngIf="showAdminToggle">
+        <i class="fa fa-bars"></i>
+      </span>
+    </md-toolbar>
+    <div class="user-panel"><i class="fa fa-user"></i> <strong>{{auth?.user}}</strong> | <strong [ngClass]="{'red' : auth?.env === 'Staging' || auth?.env === 'Development'}"><i class="fa fa-globe"></i> {{auth?.env}} <span *ngIf="auth?.env === 'Staging'">(Preview)</span></strong></div>
+    <div class="page-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</md-sidenav-container>

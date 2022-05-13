@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-12">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody dnd-sortable-container [sortableData]="mainCategories">
+        <tr *ngFor="let s of mainCategories; let i = index;" dnd-sortable [sortableIndex]="i"
+          (onDropSuccess)="onDrop(i, s)" (click)="edit(s)">
+          <td width="30" class="handle" dnd-sortable-handle><i class="fa fa-bars"></i></td>
+          <td [ngStyle]="{'backgroundColor': s.mainCategoryColour}"></td>
+          <td>{{s?.mainCategory}}</td>
+          <td>
+            <i [ngClass]="s?.cmsActive ? 'fa fa-check green' : 'fa fa-close red'"></i>
+          </td>
+          <td>
+            <i [ngClass]="s?.cmsActiveOverride === true ? 'fa fa-check green' : ''"></i>
+            <i [ngClass]="s?.cmsActiveOverride === false ? 'fa fa-close red' : ''"></i>
+            <i [ngClass]="s?.cmsActiveOverride == null ? 'fa fa-minus orange' : ''"></i>
+          </td>
+          <td>{{s?.cmsOrder + 1}}</td>
+        </tr>
+        <tr>
+          <td *ngIf="mainCategories.length === 0" colspan="3">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar> -->
+  </div>
+</div>

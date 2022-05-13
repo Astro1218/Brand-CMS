@@ -1,0 +1,32 @@
+<h2 md-dialog-title>
+  {{data.data.key}}</h2>
+<md-dialog-content>
+  <form [formGroup]="settingsForm">
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <th colspan="2" style="text-align:left;">
+          Generic Value
+        </th>
+      </tr>
+      <tr>
+        <td colspan="2">
+          {{data.data.genericValue || 'N/A'}}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <md-input-container class="example-full-width">
+            <textarea mdInput placeholder="Override Value" formControlName="value" cols="40" rows="5"></textarea>
+          </md-input-container>
+        </td>
+      </tr>
+    </table>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [md-dialog-close]="settingsForm.value">
+    <i class="fa fa-save"></i>
+  </button>
+</md-dialog-actions>

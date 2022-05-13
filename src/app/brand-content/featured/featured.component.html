@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-12">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of features">
+          <td>{{s?.productSKU}}</td>
+          <td>{{s?.featuredProductDisplayLevel}}</td>
+          <td>{{s?.cmsOrder}}</td>
+        </tr>
+        <tr>
+          <td *ngIf="features.length === 0" [attr.colspan]="columns.length">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+  </div>
+</div>

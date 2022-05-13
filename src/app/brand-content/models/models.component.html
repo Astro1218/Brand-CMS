@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-12">
+    <md-card>
+      <md-card-title>
+        Search ({{models.length}})
+      </md-card-title>
+      <md-card-content>
+        <md-input-container class="example-full-width">
+          <input mdInput placeholder="Model Name (minimum 2 characters)" (keyup)="search(keyword)" [(ngModel)]="keyword">
+        </md-input-container>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of list">
+          <td>{{s?.modelName}}</td>
+          <td>
+            <i [ngClass]="s?.cmsActive ? 'fa fa-check green' : 'fa fa-close red'"></i>
+          </td>
+          <td>
+            <i [ngClass]="s?.cmsActiveOverride === true ? 'fa fa-check green' : ''"></i>
+            <i [ngClass]="s?.cmsActiveOverride === false ? 'fa fa-close red' : ''"></i>
+            <i [ngClass]="s?.cmsActiveOverride == null ? 'fa fa-minus orange' : ''"></i>
+          </td>
+          <td>
+            <i [ngClass]="s?.primaryImage ? 'fa fa-check green' : 'fa fa-close red'"></i>
+          </td>
+          <td>
+            <i [ngClass]="s?.sageActive ? 'fa fa-check green' : 'fa fa-close red'"></i>
+          </td>
+          <td>
+              <button md-raised-button (click)="edit(s)"><i class="fa fa-edit"></i></button>
+            
+          </td>
+        </tr>
+        <tr>
+          <td *ngIf="list.length === 0" colspan="3">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="row">
+  <form name="selectionForm">
+    <div class="col-md-4">
+      <md-card>
+        <md-card-content>
+          <md-select placeholder="Main Categories" name="mainSelector" (change)="setMainCategory(selectedMainId)" [(ngModel)]="selectedMainId">
+            <md-option *ngFor="let main of mainCategories" [value]="main.mainCategoryId">
+              {{ main.mainCategory }}
+            </md-option>
+          </md-select>
+          <button md-raised-button style="float:right; margin-top:10px;" (click)="view('main')">View ({{mainCategories.length}})</button>
+        </md-card-content>
+      </md-card>
+    </div>
+    <div class="col-md-4">
+      <md-card>
+        <md-card-content>
+          <md-select placeholder="Sub Categories" [disabled]="disableSelects" name="subSelector" (change)="getProducts(selectedSubId)"
+            [(ngModel)]="selectedSubId">
+            <md-option *ngFor="let sub of subCategories" [value]="sub.subCategoryId">
+              {{ sub.subCategory }}
+            </md-option>
+          </md-select>
+          <button md-raised-button style="float:right; margin-top:10px;" [disabled]="disableSelects" (click)="view('sub')">View ({{subCategories.length}})</button>
+        </md-card-content>
+      </md-card>
+    </div>
+    <div class="col-md-4">
+      <md-card>
+        <md-card-content>
+          <md-select placeholder="Products" [disabled]="disableSelects">
+            <md-option *ngFor="let prod of products" [value]="prod.productId">
+              {{ prod.productSKU }} - {{ prod.primaryDescription }}
+            </md-option>
+          </md-select>
+          <button md-raised-button style="float:right; margin-top:10px;" [disabled]="disableSelects" (click)="view('prod')">View ({{products.length}})</button>
+        </md-card-content>
+      </md-card>
+    </div>
+  </form>
+</div>
+<list-main [array]="mainCategories" [brandId]="brandId" *ngIf="showMain"></list-main>
+<list-sub [array]="subCategories" [brandId]="brandId" *ngIf="showSub"></list-sub>
+<list-prod [array]="products" *ngIf="showProduct"></list-prod>
+
+
+

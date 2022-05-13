@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-md-12">
+    <md-card>
+      <button (click)="export()" md-raised-button style="float:right;" color="accent">Export All Reviews as CSV</button>
+      Total Reviews: {{list2.length}} <br>
+      Currently Showing: {{list.length}}
+      <div style="clear: both;"></div>
+    </md-card>
+    <p>
+      <button (click)="filterResult(1)" md-raised-button>Latest 250</button>
+      <button (click)="filterResult(2)" md-raised-button>Reviewed</button>
+      <button (click)="filterResult(3)" md-raised-button>Not Yet Reviewed</button>
+      <button (click)="filterResult(4)" md-raised-button>All</button>
+      <select  (change)="filterRating(selected_rate)" [(ngModel)]="selected_rate">
+        <option value="">All Rating</option>
+        <option [value]="rate" *ngFor="let rate of ratings">{{rate}}</option>
+      </select>
+    </p>
+    <p>
+      <i class="fa fa-info-circle"></i> The highlighted rows are Active Customer Reviews.
+    </p>
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let l of list" [ngClass]="{'reviewed':l?.adminReviewed && !l?.adminApproved, 'approved':l?.adminApproved && l?.adminReviewed}">
+          <td>
+            <i class="fa fa-question-circle" mdTooltip="{{l?.reviewComments}}" mdTooltipPosition="above"></i>
+            <span *ngIf="l?.reviewTitle.length < 30">{{l?.reviewTitle}}</span>
+            <span *ngIf="l?.reviewTitle.length > 30">{{l?.reviewTitle.substring(0,30)}}...</span>
+          </td>
+          <td>
+            <i class="fa fa-question-circle" mdTooltip="{{l?.primaryDescription}}" mdTooltipPosition="above"></i>
+            {{l?.modelName}}
+          </td>
+          <td>
+            <span *ngIf="l?.rating">
+              <i class="fa fa-star" style="color:#f1c40f;"></i>{{l?.rating}}
+            </span>
+            <span *ngIf="!l?.rating">
+              <i class="fa fa-star-o" style="color:#f1c40f;"></i>0
+            </span>
+          </td>
+          <td>
+            <div [innerHTML]="l?.customerUserName"></div>
+          </td>
+          <td>{{l?.dateCreated | date: 'dd/MM/yy'}}</td>
+          <td>
+            <button md-raised-button color="primary" *ngIf="!l.adminApproved" (click)="approve(l, true)"><i class="fa fa-check"></i> Approve</button>
+            <!-- <button md-raised-button color="accent" *ngIf="l.adminApproved" (click)="approve(l, false)"><i class="fa fa-check"></i> Unapprove</button> -->
+          </td>
+          <td>
+              <button md-raised-button color="primary" *ngIf="!l.adminReviewed" (click)="approve(l, false)"><i class="fa fa-check"></i> Reviewed</button>
+            </td>
+          <td>
+            <button md-raised-button (click)="openDialog(l)"><i class="fa fa-edit"></i></button>
+          </td>
+        </tr>
+        <tr *ngIf="list.length === 0">
+          <td>
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+  </div>
+</div>

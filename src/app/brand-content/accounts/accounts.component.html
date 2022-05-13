@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-12">
+    <md-card>
+      <md-card-title>
+        Search ({{users.length}})
+      </md-card-title>
+      <md-card-content>
+        <md-input-container class="example-full-width">
+          <input mdInput placeholder="Email (minimum 2 characters)" (keyup)="search()" [(ngModel)]="keyword">
+        </md-input-container>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let h of ['Name', 'Email', 'Country', 'Active', 'Email', 'OptIn', '']">{{h}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of filtered">
+          <td>{{s?.title}}. {{s?.lastName}}</td>
+          <td>{{s?.email}}</td>
+          <td>{{s?.country}}</td>
+          <td><i [ngClass]="s?.isActive === true ? 'fa fa-check green' : 'fa fa-close red'"></i></td>
+          <td><i [ngClass]="s?.emailConfirmed === true ? 'fa fa-check green' : 'fa fa-close red'"></i></td>
+          <td><i [ngClass]="s?.optIn === true ? 'fa fa-check green' : 'fa fa-close red'"></i></td>
+          <td>
+            <button md-raised-button (click)="openDialog(s.id)">View</button>
+          </td>
+        </tr>
+        <tr>
+          <td *ngIf="filtered.length === 0" colspan="6">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar> -->
+  </div>
+</div>

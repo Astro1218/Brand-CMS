@@ -1,0 +1,39 @@
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-12">
+    <button md-raised-button color="primary" (click)="openDialog(null, true)">Add Category Guide</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of ['Main Category Guide','Active', 'Modified By','', '']">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let l of list">
+          <td>
+            <a [routerLink]="l?.mainCatGuideId">{{l?.mainCategory}}</a>
+          </td>
+          <td>
+            <i [attr.class]="l.cmsActive ? 'fa fa-check green' : 'fa fa-close red'"></i>
+          </td>
+          <td>
+            {{l?.cmsModifiedBy}}
+          </td>
+          <td>
+            <button md-raised-button (click)="openDialog(l, false)"><i class="fa fa-edit"></i></button>
+          </td>
+          <td>
+            <button md-raised-button color="warn" (click)="remove(l)"><i class="fa fa-trash-o"></i></button>
+          </td>
+        </tr>
+        <tr *ngIf="list.length === 0">
+          <td colspan="4"><em>No data.</em></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

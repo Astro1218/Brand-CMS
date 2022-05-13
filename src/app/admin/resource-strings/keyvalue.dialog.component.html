@@ -1,0 +1,29 @@
+<h2 md-dialog-title>
+  Resource String Key / Value</h2>
+<md-dialog-content>
+  <form [formGroup]="settingsForm">
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td colspan="2">
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="Key" formControlName="key">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="Value" formControlName="value">
+          </md-input-container>
+        </td>
+      </tr>
+    </table>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [md-dialog-close]="settingsForm.value">
+    <i class="fa fa-save"></i>
+  </button>
+</md-dialog-actions>

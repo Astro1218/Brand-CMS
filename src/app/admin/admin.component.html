@@ -1,0 +1,21 @@
+<p>ADMIN</p>
+<div class="row">
+  <div class="col-lg-2 col-md-3 col-sm-4" *ngFor="let b of brands">
+    <a [routerLink]="[b?.brand.toLowerCase(), 'edit', b?.brandId]">
+      <md-card class="example-card">
+        <md-card-header>
+          <md-card-title [class.line-through]="!b?.cmsActive">
+            <small>{{b?.brand}}</small>
+          </md-card-title>
+        </md-card-header>
+        <img md-card-image [attr.src]="getImage(b?.brand.toLowerCase(), b?.brandImage)" class="card-image" [attr.alt]="b?.brand">
+        <md-card-content>
+          <p [class.line-through]="!b?.cmsActive">
+            {{b?.adGroup || 'N/A'}}
+          </p>
+        </md-card-content>
+      </md-card>
+    </a>
+  </div>
+</div>
+<error-status [error]="error"></error-status>

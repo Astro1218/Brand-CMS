@@ -1,0 +1,39 @@
+<div class="row">
+
+  <div class="col-md-12">
+    <md-card>
+      <md-card-title>Folders</md-card-title>
+      <md-card-subtitle>
+        <strong>Current Folder:</strong>
+        <em>{{selectedFolder}}</em>
+      </md-card-subtitle>
+      <md-card-content>
+        <md-form-field class="example-full-width">
+            <input mdInput  placeholder="Add folder..." [(ngModel)]="folder">
+        </md-form-field>
+        <button md-raised-button (click)="addFolder(folder)" [disabled]="!folder">Add Folder</button>
+        <input md-raised-button type="file" name="files" id="files" #files multiple (change)="checkForFiles()">
+        <button md-raised-button (click)="upload()" *ngIf="hasFiles">Upload</button>
+      </md-card-content>
+      <ul style="list-style-type: none;">
+        <li *ngIf="folderHistory.length == 0">
+          <i class="fa fa-folder" style="color:orange;"></i> root
+        </li>
+        <li (click)="goToLastFolder()" *ngIf="folderHistory.length > 0" style="cursor:pointer;">
+            <i class="fa fa-folder" style="color:orange;"></i> ..
+        </li>
+        <li *ngFor="let f of folderList" style="cursor:pointer;">
+          <span (click)="goToFolder(f)">
+            <i class="fa fa-folder" style="color:orange;"></i> {{f.replace(content.content.prefix, '')}}</span> <i class="fa fa-trash-o" (click)="delete(f)"></i>
+        </li>
+        <li *ngFor="let f of filesList">
+            <span *ngIf="selectedFolder != f.key">
+                <i class="fa fa-file-o"></i> <a [href]="content.s3Url + f.bucketName + '/' + f.key" target="_blank">{{f?.key.replace(content.content.prefix, '')}}</a>  <i class="fa fa-trash-o" (click)="delete(f.key)"></i>  <i class="fa fa-copy" (click)="copy(content.s3Url + f.bucketName + '/' + f.key)"></i></span>
+        </li>
+        <li *ngIf="folderList.length === 0 && filesList.length < 2">
+          <em>Empty folder...</em>
+        </li>
+      </ul>
+    </md-card>
+  </div>
+</div>

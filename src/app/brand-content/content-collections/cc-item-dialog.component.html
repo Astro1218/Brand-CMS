@@ -1,0 +1,50 @@
+<h2 md-dialog-title>
+  Content Collection Item</h2>
+<md-dialog-content>
+  <form [formGroup]="settingsForm">
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td colspan="2">
+          <md-select class="example-full-width" placeholder="Culture Codes" formControlName="languageId">
+            <md-option *ngFor="let cc of codes" [value]="cc.languageId">
+              {{ cc.cultureCode }}
+            </md-option>
+          </md-select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="Title" formControlName="title">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="Details" formControlName="details">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="ALT Tag" formControlName="altTag">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          {{settingsForm.value.cultureImageFilename}}
+        </td>
+      </tr>
+    </table>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [disabled]="settingsForm.invalid" [md-dialog-close]="{form: settingsForm.value}"><i class="fa fa-save"></i></button>
+  <span class="example-spacer"></span>
+  <!-- <button md-button color="warn" [md-dialog-close]="{delete: settingsForm.value}"><i class="fa fa-trash"></i></button> -->
+</md-dialog-actions>

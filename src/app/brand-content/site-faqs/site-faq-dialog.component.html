@@ -1,0 +1,33 @@
+<h2 md-dialog-title>
+   <span *ngIf="data.isNew">New</span> Site FAQ</h2>
+  <md-dialog-content>
+    <form [formGroup]="faqForm">
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <md-input-container class="example-full-width">
+              <textarea mdInput placeholder="Question" formControlName="question" cols="40" rows="5"></textarea>
+            </md-input-container>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <md-input-container class="example-full-width">
+              <textarea mdInput placeholder="Answer" formControlName="answer" cols="40" rows="10"></textarea>
+            </md-input-container>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <md-slide-toggle formControlName="cmsActive">Active</md-slide-toggle>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+    <!-- Can optionally provide a result for the closing dialog. -->
+    <button md-raised-button color="primary" [md-dialog-close]="faqForm.value" [disabled]="faqForm.invalid"><i class="fa fa-save"></i></button>
+  </md-dialog-actions>
+  

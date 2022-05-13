@@ -1,0 +1,20 @@
+<h2 md-dialog-title>
+  Main Category Guide Item</h2>
+<md-dialog-content>
+  <form [formGroup]="form">
+    <md-form-field class="example-full-width">
+      <input mdInput placeholder="Title (Max 50 chars)" formControlName="title" maxlength="50">
+    </md-form-field>
+    <md-form-field class="example-full-width">
+      <textarea mdInput placeholder="Description" formControlName="description" cols="40" rows="10"></textarea>
+    </md-form-field>
+    <md-slide-toggle formControlName="cmsActive">Active</md-slide-toggle>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [md-dialog-close]="form.value" [disabled]="form.invalid">
+    <i class="fa fa-save"></i>
+  </button>
+</md-dialog-actions>

@@ -1,0 +1,37 @@
+<h2 md-dialog-title>Competition Item</h2>
+<md-dialog-content>
+  <form [formGroup]="form">
+    <md-form-field class="example-full-width">
+      <input mdInput placeholder="Title (Max 50 chars) *" formControlName="title" maxlength="50">
+    </md-form-field>
+    <md-input-container class="example-full-width">
+      <textarea mdInput  placeholder="Detail" formControlName="details" cols="40" rows="8"></textarea>
+    </md-input-container>
+    <!-- <md-form-field class="example-full-width">
+      <input mdInput placeholder="PDF URL..." formControlName="pdfURL">
+    </md-form-field> -->
+
+    <br>
+    <strong>PDF {{form.value.pdfURL ? 'Uploaded' : 'Upload'}}</strong>
+    <br>
+    <div>
+      <input [attr.type]="!form.value.pdfURL ? 'file' : 'hidden'" id="files" name="files" placeholder="pdfURL">
+      <br *ngIf="!form.value.pdfURL">
+    </div>
+    <div *ngIf="form.value.pdfURL">
+      <small>{{form.value.pdfURL}}</small>
+      <br>
+    </div>
+    <br>
+    <!-- <md-slide-toggle formControlName="showHeadline">Show Headline</md-slide-toggle> -->
+    <md-slide-toggle formControlName="cmsActive">Active</md-slide-toggle>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close color="warn">Close</button> &nbsp;
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button color="primary" [md-dialog-close]="form.value" [disabled]="form.invalid">
+    <i class="fa fa-save"></i>
+  </button>
+  <button md-raised-button color="warn" [md-dialog-close]="{delete: form.value}" *ngIf="form.value.pdfURL">REMOVE PDF</button>
+</md-dialog-actions>

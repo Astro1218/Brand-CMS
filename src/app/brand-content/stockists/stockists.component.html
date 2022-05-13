@@ -1,0 +1,55 @@
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-12">
+    <button md-raised-button color="primary" (click)="openDialog(null, true)">Add Stockist</button>
+    <button md-raised-button color="accent" (click)="export()">Export Stockist</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <md-card>
+      <md-card-title>
+        Search ({{data.length}})
+      </md-card-title>
+      <md-card-content>
+        <md-input-container class="example-full-width">
+          <input mdInput placeholder="Stockist Name (minimum 4 characters)" (keyup)="search(keyword)" [(ngModel)]="keyword">
+        </md-input-container>
+        <br>
+        <md-slide-toggle class="example-margin" [color]="'accent'" (change)="showAll($event.checked)" [(ngModel)]="toggle">
+            Show All Stockists
+          </md-slide-toggle>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div class="col-md-12">
+    <p>
+      <i class="fa fa-info-circle"></i> The highlighted rows are Active Stockists.
+    </p>
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of stockists" [class.approved]="s?.cmsActive">
+          <td>{{s?.stockistName}}</td>
+          <td>{{s?.stockistType}}</td>
+          <td>
+            <button md-raised-button color="warn" (click)="delete(s)">Delete</button>
+          </td>
+          <td>
+              <button md-raised-button (click)="openDialog(s, false)"><i class="fa fa-edit"></i></button>
+
+          </td>
+        </tr>
+        <tr>
+          <td *ngIf="stockists.length === 0" colspan="3">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+  </div>
+</div>

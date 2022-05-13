@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-lg-2 col-md-3 col-sm-4" *ngFor="let b of brands">
+    <div (click)="authenticate(b)" class="cursor">
+      <md-card class="example-card">
+        <md-card-header>
+          <md-card-title>{{b.brand}}</md-card-title>
+        </md-card-header>
+        <div>
+          <!-- <img md-card-image [attr.src]="getImage(b.brand,b.brandImage)" class="card-image" [attr.alt]="b.brand"> -->
+          <img md-card-image src="./assets/brands/fix.png" class="card-image" [attr.alt]="b.brand">
+        </div>
+         <md-card-content>
+          <p>
+            {{b?.brand}}
+            <br> Settings
+          </p>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-3 col-sm-4" *ngIf="noBrands">
+    <md-card>
+      <md-card-content>
+        <p>
+          Access Denied.
+        </p>
+        <p>
+          Please contact your line manager for access.
+        </p>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div class="col-lg-2 col-md-3 col-sm-4" *ngIf="auth?.isAdmin">
+    <a [routerLink]="['admin']">
+      <md-card class="admin-card">
+        <!-- <md-card-header>
+          <md-card-title>Admin</md-card-title>
+        </md-card-header> -->
+        <img md-card-image src="assets/admin.png">
+         <md-card-content>
+          <p>
+            Admin
+            <br>
+            Settings
+          </p>
+        </md-card-content>
+      </md-card>
+    </a>
+  </div>
+</div>

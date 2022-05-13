@@ -1,0 +1,76 @@
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-12">
+    <a [routerLink]="returnLink" md-raised-button>Return</a>
+    <button md-raised-button color="primary" (click)="openDialog()">Add Content Region Item</button>
+  </div>
+</div>
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-8">
+    <md-card>
+      <content-region-form [contentRegionId]="contentRegionId" [brandId]="brandId" (callback)="updateCallback($event)"></content-region-form>
+    </md-card>
+  </div>
+  <div class="col-md-4">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of items" (click)="edit(s)" class="cursor" [class.active]="selectedRegion == s">
+          <td>{{s?.cultureCode}}</td>
+          <!-- <td>{{s?.contentRegionItem.substring(0,50)}}</td> -->
+        </tr>
+        <tr>
+          <td *ngIf="items.length === 0" [attr.colspan]="columns.length">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <md-progress-bar mode="query" *ngIf="loading"></md-progress-bar>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div *ngIf="selectedRegion">
+      <md-expansion-panel style="margin-bottom:20px;">
+        <md-expansion-panel-header>
+          <md-panel-title>
+            HTML Formatted
+          </md-panel-title>
+          <md-panel-description>
+            The selected region's formatted text for the web
+          </md-panel-description>
+        </md-expansion-panel-header>
+        {{text}}
+      </md-expansion-panel>
+      <md-card>
+        <md-card-title>
+            Editting {{selectedRegion.cultureCode}}
+            <span style="float:right;">
+              <md-slide-toggle [(ngModel)]="isHTML" (change)="switch()">HTML</md-slide-toggle>
+            </span>
+          </md-card-title>
+        <div *ngIf="isHTML">
+          <md-card-content>
+            <p-editor [(ngModel)]="text" [style]="{'height':'400px'}"></p-editor>
+          </md-card-content>
+        </div>
+        <div *ngIf="!isHTML">
+          <md-form-field class="example-full-width">
+            <textarea mdInput placeholder="Plain Text" [(ngModel)]="text"></textarea>
+          </md-form-field>
+        </div>
+        <md-card-actions>
+          <button md-button color="accent" (click)="selectedRegion = null">Cancel</button>
+          <button md-raised-button color="primary" (click)="updateItem()">Save</button>
+          <button md-raised-button color="warn" (click)="deleteItem()" style="float:right;">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </div>
+</div>

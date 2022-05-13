@@ -1,0 +1,133 @@
+<div class="row">
+  <div class="col-lg-3">
+    <md-card>
+      <img md-card-image [attr.src]="getImage(brand.toLowerCase())" [attr.alt]="brand">
+    </md-card>
+    <p-fileUpload mode="basic" [disabled]="brandForm.value.brandImage" name="files" [url]="uploadUrl" chooseLabel="Choose / Add"
+      withCredentials="true" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
+    <br>
+    <button md-raised-button *ngIf="brandForm.value.brandImage" color="warn" (click)="deleteImage()"><i class="fa fa-trash-o"></i></button>
+  </div>
+  <div class="col-lg-9">
+    <div class="row">
+      <div class="col-lg-8">
+        <form class="example-form" [formGroup]="brandForm" (ngSubmit)="insert(brandForm.value)">
+          <md-card>
+            <md-card-header>
+              <md-card-title>CMS Settings</md-card-title>
+            </md-card-header>
+            <md-card-content>
+              <p>
+                <md-slide-toggle formControlName="cmsActive">CMS Active</md-slide-toggle>
+              </p>
+              <md-input-container class="example-full-width">
+                <input mdInput placeholder="Assigned AD Group to manage this brand" formControlName="adGroup">
+              </md-input-container>
+
+              <md-select placeholder="Feature Product Display Level" formControlName="featuredProductDisplayLevelId">
+                <md-option *ngFor="let f of features" [value]="f.featuredProductDisplayLevelId">
+                  {{ f.featuredProductDisplayLevel }}
+                </md-option>
+              </md-select>
+              <md-select placeholder="Web Display Level" formControlName="webDisplayLevel">
+                <md-option *ngFor="let m of [{value:'M', text:'Model'}, {value:'P', text:'Product'}]" [value]="m.value">
+                  {{ m.text }}
+                </md-option>
+              </md-select>
+              <table class="example-full-width" cellspacing="0" style="margin-top:20px;">
+                <tr>
+                  <td colspan="2">
+                    Created
+                    <h4>{{this.brandForm.value.dateCreated | date: 'medium'}}</h4>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Modified
+                    <h4>{{this.brandForm.value.cmsDateModified | date: 'medium'}}</h4>
+                  </td>
+                  <td>
+                    Modified By
+                    <h4>{{this.brandForm.value.cmsModifiedBy}}</h4>
+                  </td>
+                </tr>
+              </table>
+            </md-card-content>
+            <md-card-actions>
+              <button md-button color="primary" type="reset">Reset</button>
+              <button md-raised-button color="primary"><i class="fa fa-save"></i></button>
+            </md-card-actions>
+          </md-card>
+        </form>
+        <a md-raised-button [routerLink]="['/admin']"><i class="fa fa-arrow-left"></i> Return</a>
+      </div>
+      <div class="col-lg-4">
+        <md-card>
+          <md-card-header>
+            <md-card-title>Navigation Settings</md-card-title>
+          </md-card-header>
+          <md-card-content>
+            <md-list>
+              <md-list-item *ngFor="let sn of siteNavigation" style="word-wrap: break-word;">
+                <md-checkbox class="example-margin" [(ngModel)]="sn.cmsActive" (change)="setNav(sn)">{{sn.siteNavigation}}</md-checkbox>
+              </md-list-item>
+            </md-list>
+          </md-card-content>
+        </md-card>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-3">
+  </div>
+  <div class="col-lg-9">
+    <md-card>
+      <md-card-header>
+        <md-card-title>Language Index</md-card-title>
+      </md-card-header>
+      <md-card-content>
+        <div class="col-lg-3" *ngFor="let lc of languageCodes">
+          <div>
+            <md-checkbox class="example-margin" [(ngModel)]="lc.cmsActive" (change)="setIndex(lc)" [disabled]="!lc.globalActive">{{lc.cultureCode}}</md-checkbox>
+          </div>
+        </div>
+        <div style="clear:both;"></div>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-3">
+    <button md-raised-button color="primary" (click)="openDialog(null, true)">Add Site Setting (K-V-P)</button>
+  </div>
+  <div class="col-lg-9">
+    <table class="md-table">
+      <thead>
+        <tr>
+          <th colspan="2">
+            Site Settings
+          </th>
+        </tr>
+        <tr>
+          <th *ngFor="let header of columns">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let l of settings" (click)="openDialog(l, false)" class="cursor">
+          <td>
+            {{l?.description}}
+          </td>
+          <td>
+            {{l?.value}}
+          </td>
+        </tr>
+        <tr *ngIf="settings.length === 0">
+          <td colspan="2">
+            No data.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

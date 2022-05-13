@@ -1,0 +1,229 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+/* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+
+
+/* @import '~@angular/material/prebuilt-themes/indigo-pink.css'; */
+
+
+/* @import '~@angular/material/prebuilt-themes/pink-bluegrey.css'; */
+
+
+/* @import '~@angular/material/prebuilt-themes/purple-green.css'; */
+
+.page-wrapper {
+  padding: 0 30px 30px 30px;
+}
+
+
+/* toolbar */
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+
+/* sidenav */
+
+html,
+body,
+material-app,
+md-sidenav-container,
+.my-content {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+md-sidenav {
+  width: 200px;
+  border-right: 1px solid rgba(0, 0, 0, .12);
+  border-left: 1px solid rgba(0, 0, 0, .12);
+}
+
+md-card {
+  margin-bottom: 20px;
+}
+
+.lang {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 30px;
+  padding: 20px 0;
+}
+
+.tab-content {
+  padding: 15px;
+}
+
+.demo-chip-list {
+  width: 100%;
+}
+
+
+/* card */
+
+.example-card:hover,
+.admin-card:hover {
+  box-shadow: 0 0 15px 0px #666 !important;
+  transition: all 0.4s;
+}
+
+.example-header-image {
+  background-image: url('~/assets/brands/silver.png');
+  background-size: cover;
+}
+
+.admin-card {
+  background-color: #ddd !important;
+}
+
+.card-image {
+  padding: 5px;
+}
+
+.user-panel {
+  padding: 10px;
+  text-align: center;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, .12);
+  margin-bottom: 30px;
+  color: #666;
+}
+
+
+/* .example-form {
+  width: 500px;
+} */
+
+.example-full-width {
+  width: 100% !important;
+}
+
+span>i {
+  margin: 0 10px;
+}
+
+.md-table {
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 3px 10px #aaa;
+  border-radius: 2px;
+}
+
+.md-table thead tr th,
+.md-table tbody tr td {
+  padding: 5px 8px;
+  text-align: left;
+  height: 40px;
+  border-bottom: 1px solid #ccc;
+  flex: 1;
+}
+
+.md-table tbody tr:hover {
+  background-color: #eee;
+  transition: all 0.3s;
+}
+
+span>a>i {
+  margin: 0 5px;
+  padding: 10px;
+  font-size: 15pt !important;
+  color: white !important;
+}
+
+.line-through {
+  text-decoration: line-through;
+  color: #bbb;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+agm-map {
+  height: 300px;
+}
+
+.cursor:hover {
+  cursor: pointer;
+}
+
+.approved {
+  background-color: #EEFFF6;
+}
+
+.reviewed {
+  background-color: #fdff734f;
+}
+
+.dialog-bg {
+  background-color: #2c3e50;
+}
+
+.handle:hover {
+  cursor: grab;
+}
+
+.draggable-move {
+  cursor: move;
+}
+
+.dnd-drag-start {
+  -moz-transform: scale(0.8);
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+  opacity: 0.7;
+  border: 2px dashed #000;
+}
+
+.dnd-drag-enter {
+  opacity: 0.7;
+  border: 2px dashed #000;
+}
+
+.dnd-drag-over {
+  border: 2px dashed #000;
+}
+
+.dnd-sortable-drag {
+  -moz-transform: scale(0.9);
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+  opacity: 0.7;
+  border: 1px dashed #000;
+}
+
+.primary {
+  background-color: #eee;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.gold {
+  color: gold;
+}
+
+.orange {
+  color: orange;
+}
+
+.danger{
+  background-color: rgb(255, 149, 149) !important;
+}
+.success{
+  background-color: rgb(162, 252, 174) !important;
+}
